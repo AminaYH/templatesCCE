@@ -1,5 +1,5 @@
 # values.yaml
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: amina88/backend-image
