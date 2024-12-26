@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: amina88/backendimage
+  repository: amina88/backend-image
   tag: latest
   pullPolicy: Always
 
