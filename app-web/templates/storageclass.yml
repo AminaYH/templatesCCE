@@ -6,6 +6,6 @@ provisioner: everest-csi-provisioner
 parameters:
   zone: kvm.az1
   diskType: Ultra-high I/O
-  encryption: Unencrypted
+  encryption: none
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
