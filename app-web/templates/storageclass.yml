@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-disk
+provisioner: everest-csi-provisioner  
+parameters:
+  zone: kvm.az1
+  diskType: Ultra-high I/O
+  encryption: Unencrypted
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
