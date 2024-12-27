@@ -19,9 +19,9 @@ spec:
             - containerPort: 3000
           env:
             - name: DATABASE_URL
-              value: "{{ .Values.database.url }}"
+              value: {{ .Values.database.url }}
             - name: RAILS_ENV
-              value: "{{ .Values.rails.environment }}"
+              value: {{ .Values.rails.environment }}
           volumeMounts:
             - name: app-volume
               mountPath: /rails
@@ -30,11 +30,11 @@ spec:
           image: "{{ .Values.postgres.image }}"
           env:
             - name: POSTGRES_DB
-              value: "{{ .Values.postgres.environment.POSTGRES_DB }}"
+              value: {{ .Values.postgres.environment.POSTGRES_DB }}
             - name: POSTGRES_USER
-              value: "{{ .Values.postgres.environment.POSTGRES_USER }}"
+              value: {{ .Values.postgres.environment.POSTGRES_USER }}
             - name: POSTGRES_PASSWORD
-              value: "{{ .Values.postgres.environment.POSTGRES_PASSWORD }}"
+              value: {{ .Values.postgres.environment.POSTGRES_PASSWORD }}
           ports:
             - containerPort: 5432
       volumes:
