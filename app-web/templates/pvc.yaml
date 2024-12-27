@@ -7,7 +7,6 @@ metadata:
     everest.io/disk-volume-type: SSD  
   labels:
     failure-domain.beta.kubernetes.io/region: kvm.az1
-    failure-domain.beta.kubernetes.io/zone: 
 spec:
   accessModes:
   - ReadWriteOnce               # The value must be ReadWriteOnce for EVS.
@@ -27,7 +26,6 @@ metadata:
     everest.io/disk-volume-type: SAS 
   labels:
     failure-domain.beta.kubernetes.io/region:  kvm.az1
-    failure-domain.beta.kubernetes.io/zone:
 spec:
   accessModes:
   - ReadWriteOnce               # The value must be ReadWriteOnce for EVS.
