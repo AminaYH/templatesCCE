@@ -6,7 +6,8 @@ metadata:
   annotations:
     everest.io/disk-volume-type: SSD  
   labels:
-    failure-domain.beta.kubernetes.io/region: kvm.az1
+    failure-domain.beta.kubernetes.io/region: tn-global-1
+    failure-domain.beta.kubernetes.io/zone: kvm.az1
 spec:
   accessModes:
   - ReadWriteOnce               # The value must be ReadWriteOnce for EVS.
@@ -14,7 +15,7 @@ spec:
     requests:
       storage: 10Gi             # EVS disk capacity, ranging from 1 to 32768.
   storageClassName: csi-disk
-  
+  volumeMode: Filesystem
   
 ---
 apiVersion: v1
@@ -25,7 +26,8 @@ metadata:
   annotations:
     everest.io/disk-volume-type: SAS 
   labels:
-    failure-domain.beta.kubernetes.io/region:  kvm.az1
+    failure-domain.beta.kubernetes.io/region: tn-global-1
+    failure-domain.beta.kubernetes.io/zone: kvm.az1
 spec:
   accessModes:
   - ReadWriteOnce               # The value must be ReadWriteOnce for EVS.
@@ -33,3 +35,4 @@ spec:
     requests:
       storage: 10Gi             # EVS disk capacity, ranging from 1 to 32768.
   storageClassName: csi-disk
+  volumeMode: Filesystem
