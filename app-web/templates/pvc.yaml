@@ -11,7 +11,7 @@ spec:
       storage: 1Gi  
   storageClassName: csi-disk  
   volumeMode: Filesystem
-    encryption: Unencrypted
+  encryption: Unencrypted
   
 ---
 apiVersion: v1
@@ -27,4 +27,4 @@ spec:
       storage: 1Gi  
   storageClassName: csi-disk  
   volumeMode: Filesystem
-    encryption: Unencrypted
+  encryption: Unencrypted
