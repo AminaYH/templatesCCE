@@ -1,40 +1,46 @@
+# Define the image settings for both Rails and Postgres containers
 image:
   rails:
-    repository: amina88/backend-image  
+    repository: amina88/backend-image  # Your Rails app image
     tag: latest
   postgres:
-    repository: postgres
-    tag: "12"
+    repository: postgres  # Postgres image
+    tag: "12"  # Postgres version
 
+# Database settings for Rails
 database:
-  url: postgres://postgres:password@db:5432/myapp_development
-  env: development
+  url: postgres://postgres:password@db:5432/myapp_development  # The DB connection string
+  env: development  # The environment for the database
 
+# Rails configuration
 rails:
-  environment: development
-  command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+  environment: development  # Rails environment (development, production, etc.)
+  command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"  # Command to run the Rails server
 
+# Postgres container settings
 postgres:
-  image: postgres:12
+  image: postgres:12  # Use the specified Postgres image version
   environment:
-    POSTGRES_DB: myapp_development
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: password
+    POSTGRES_DB: myapp_development  # Database name
+    POSTGRES_USER: postgres  # Username
+    POSTGRES_PASSWORD: password  # Password for the database
 
+# Persistence settings for volumes
 persistence:
   postgres:
-    enabled: true
-    size: 1Gi
+    enabled: true  # Enable persistence for the Postgres container
+    size: 1Gi  # Size of the persistent volume for Postgres
   app:
-    enabled: true
-    size: 1Gi
+    enabled: true  # Enable persistence for the Rails app
+    size: 1Gi  # Size of the persistent volume for the Rails app
 
+# Ingress settings for exposing the app
 ingress:
-  enabled: true
-  host: ruby-app.example.com
+  enabled: true  # Enable Ingress
+  host: ruby-app.example.com  # Host for the Ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /  # URL rewrite target for NGINX
   tls:
-    - secretName: ruby-app-tls
+    - secretName: ruby-app-tls  # TLS Secret name for HTTPS
       hosts:
-        - ruby-app.example.com
+        - ruby-app.example.com  # Host for the TLS certificate
