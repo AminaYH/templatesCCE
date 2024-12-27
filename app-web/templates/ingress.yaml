@@ -1,28 +1,23 @@
-{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-ingress
+  name: ruby-app-ingress
+  namespace: default
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value }}
-    {{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: {{ .Values.ingress.host }}
+  - host: ruby-app.example.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: {{ .Release.Name }}
+            name: apphelm
             port:
-              number: {{ .Values.service.port }}
-  {{- if .Values.ingress.tls }}
+              number: 80
   tls:
   - hosts:
-    - {{ .Values.ingress.host }}
-    secretName: {{ .Values.ingress.tlsSecret }}
-  {{- end }}
-{{- end }}
+    - ruby-app.example.com
+    secretName: ruby-app-tls
