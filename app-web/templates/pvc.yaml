@@ -24,7 +24,7 @@ metadata:
   name: postgres-pvc
   namespace: default
   annotations:
-    everest.io/disk-volume-type: SAS 
+    everest.io/disk-volume-type: SSD 
   labels:
     failure-domain.beta.kubernetes.io/region: tn-global-1
     failure-domain.beta.kubernetes.io/zone: kvm.az1
