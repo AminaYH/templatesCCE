@@ -8,12 +8,9 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 1Gi  
   storageClassName: csi-disk  
   volumeMode: Filesystem
-  volumeAttributes:
-    zone: kvm.az1
-    diskType: Ultra-high I/O
     encryption: Unencrypted
   
 ---
@@ -27,10 +24,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: csi-disk 
+      storage: 1Gi  
+  storageClassName: csi-disk  
   volumeMode: Filesystem
-  volumeAttributes:
-    zone: kvm.az1
-    diskType: Ultra-high I/O
     encryption: Unencrypted
