@@ -1,34 +1,18 @@
-# values.yaml
-replicaCount: 1
+# ruby-rails-chart/values.yaml
 
-image:
-  repository: amina88/backend-image
-  tag: latest
-  pullPolicy: Always
+postgres:
+  image: postgres:12
+  db: myapp_development
+  user: postgres
+  password: password
+  volume_size: 1Gi
 
-service:
-  type: LoadBalancer
-  port: 80
-  targetPort: 3000
-
-ingress:
-  enabled: true
-  host: ruby-app.example.com
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-  tls: []
-
-resources:
-  limits:
-    cpu: 200m
-    memory: 250Mi
-  requests:
-    cpu: 200m
-    memory: 250Mi
-
-nodeSelector: {}
-tolerations: []
-affinity: {}
-env:
-  - name: RAILS_ENV
-    value: "development"
+rails:
+  image: amina88/backend-image:latest  # The image for your Rails app
+  environment:
+    DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
+    RAILS_ENV: development
+  volume_size: 1Gi
+  command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+  ports:
+    - "3000:3000"
