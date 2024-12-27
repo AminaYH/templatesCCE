@@ -4,15 +4,18 @@ metadata:
   name: app-pvc
   namespace: default
   annotations:
-    everest.io/disk-volume-type: SAS
+    everest.io/disk-volume-type: SSD  
+  labels:
+    failure-domain.beta.kubernetes.io/region: kvm.az1
+    failure-domain.beta.kubernetes.io/zone: 
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce               # The value must be ReadWriteOnce for EVS.
   resources:
     requests:
-      storage: 1Gi  
-  storageClassName: csi-disk  
-  volumeMode: Filesystem
+      storage: 10Gi             # EVS disk capacity, ranging from 1 to 32768.
+  storageClassName: csi-disk
+  
   
 ---
 apiVersion: v1
@@ -21,12 +24,14 @@ metadata:
   name: postgres-pvc
   namespace: default
   annotations:
-    everest.io/disk-volume-type: SAS
+    everest.io/disk-volume-type: SAS 
+  labels:
+    failure-domain.beta.kubernetes.io/region:  kvm.az1
+    failure-domain.beta.kubernetes.io/zone:
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce               # The value must be ReadWriteOnce for EVS.
   resources:
     requests:
-      storage: 1Gi  
-  storageClassName: csi-disk  
-  volumeMode: Filesystem
+      storage: 10Gi             # EVS disk capacity, ranging from 1 to 32768.
+  storageClassName: csi-disk
