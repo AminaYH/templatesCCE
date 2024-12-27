@@ -1,29 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}
-  labels:
-    app: {{ .Chart.Name }}
+  name: web
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: web
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: web
     spec:
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - containerPort: {{ .Values.service.targetPort }}
-        resources:
-          limits:
-            cpu: {{ .Values.resources.limits.cpu }}
-            memory: {{ .Values.resources.limits.memory }}
-          requests:
-            cpu: {{ .Values.resources.requests.cpu }}
-            memory: {{ .Values.resources.requests.memory }}
+        - name: rails
+          image: {{ .Values.rails.image }}
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.rails.environment.DATABASE_URL }}
+            - name: RAILS_ENV
+              value: {{ .Values.rails.environment.RAILS_ENV }}
+          command:
+            - bash
+            - -c
+            - "{{ .Values.rails.command }}"
+          ports:
+            - containerPort: {{ .Values.rails.ports[0] }}
+          volumeMounts:
+            - mountPath: /rails
+              name: rails-code
+      volumes:
+        - name: rails-code
+          persistentVolumeClaim:
+            claimName: rails-code-claim
