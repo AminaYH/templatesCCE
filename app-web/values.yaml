@@ -1,18 +1,35 @@
-# ruby-rails-chart/values.yaml
+# Define the image settings
+image:
+  rails:
+    repository: amina88/backend-image  # Your Rails app image
+    tag: latest
+  postgres:
+    repository: postgres
+    tag: "12"
 
+# Database settings for Rails
+database:
+  url: postgres://postgres:password@db:5432/myapp_development
+  env: development
+
+# Rails configuration
+rails:
+  environment: development
+  command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
+
+# Postgres container settings
 postgres:
   image: postgres:12
-  db: myapp_development
-  user: postgres
-  password: password
-  volume_size: 1Gi
-
-rails:
-  image: amina88/backend-image:latest  # The image for your Rails app
   environment:
-    DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
-    RAILS_ENV: development
-  volume_size: 1Gi
-  command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
-  ports:
-    - "3000:3000"
+    POSTGRES_DB: myapp_development
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: password
+
+# Persistent volume claim settings
+persistence:
+  postgres:
+    enabled: true
+    size: 1Gi
+  app:
+    enabled: true
+    size: 1Gi
