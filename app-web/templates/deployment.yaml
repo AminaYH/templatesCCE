@@ -1,35 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web
+  name: ruby-on-rails-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web
+      app: ruby-on-rails-app
   template:
     metadata:
       labels:
-        app: web
+        app: ruby-on-rails-app
     spec:
       containers:
-        - name: rails
-          image: {{ .Values.rails.image }}
+        - name: rails-app
+          image: "{{ .Values.image.rails.repository }}:{{ .Values.image.rails.tag }}"
+          ports:
+            - containerPort: 3000
           env:
             - name: DATABASE_URL
-              value: {{ .Values.rails.environment.DATABASE_URL }}
+              value: "{{ .Values.database.url }}"
             - name: RAILS_ENV
-              value: {{ .Values.rails.environment.RAILS_ENV }}
-          command:
-            - bash
-            - -c
-            - "{{ .Values.rails.command }}"
-          ports:
-            - containerPort: {{ .Values.rails.ports[0] }}
+              value: "{{ .Values.rails.environment }}"
           volumeMounts:
-            - mountPath: /rails
-              name: rails-code
+            - name: app-volume
+              mountPath: /rails
+          command: ["/bin/bash", "-c", "{{ .Values.rails.command }}"]
+        - name: postgres
+          image: "{{ .Values.postgres.image }}"
+          env:
+            - name: POSTGRES_DB
+              value: "{{ .Values.postgres.environment.POSTGRES_DB }}"
+            - name: POSTGRES_USER
+              value: "{{ .Values.postgres.environment.POSTGRES_USER }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.postgres.environment.POSTGRES_PASSWORD }}"
+          ports:
+            - containerPort: 5432
       volumes:
-        - name: rails-code
+        - name: app-volume
           persistentVolumeClaim:
-            claimName: rails-code-claim
+            claimName: app-pvc
