@@ -3,6 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: app-pvc
   namespace: default
+  annotations:
+    everest.io/disk-volume-type: SAS
 spec:
   accessModes:
     - ReadWriteOnce
@@ -18,6 +20,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pvc
   namespace: default
+  annotations:
+    everest.io/disk-volume-type: SAS
 spec:
   accessModes:
     - ReadWriteOnce
