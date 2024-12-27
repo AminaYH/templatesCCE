@@ -1,23 +1,19 @@
-# Define the image settings
 image:
   rails:
-    repository: amina88/backend-image  # Your Rails app image
+    repository: amina88/backend-image  
     tag: latest
   postgres:
     repository: postgres
     tag: "12"
 
-# Database settings for Rails
 database:
   url: postgres://postgres:password@db:5432/myapp_development
   env: development
 
-# Rails configuration
 rails:
   environment: development
   command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"
 
-# Postgres container settings
 postgres:
   image: postgres:12
   environment:
@@ -25,7 +21,6 @@ postgres:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: password
 
-# Persistent volume claim settings
 persistence:
   postgres:
     enabled: true
@@ -33,3 +28,13 @@ persistence:
   app:
     enabled: true
     size: 1Gi
+
+ingress:
+  enabled: true
+  host: ruby-app.example.com
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  tls:
+    - secretName: ruby-app-tls
+      hosts:
+        - ruby-app.example.com
