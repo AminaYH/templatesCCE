@@ -1,6 +1,6 @@
 image:
   rails:
-    repository: amina88/backend-image  
+    repository: workout-logger-web amina88/workout-logger-web
     tag: latest
   postgres:
     repository: postgres 
