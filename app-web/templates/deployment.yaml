@@ -12,6 +12,13 @@ spec:
       labels:
         app: ruby-on-rails-app
     spec:
+      initContainers:
+        - name: copy-app-files
+          image: "{{ .Values.image.rails.repository }}:{{ .Values.image.rails.tag }}"
+          command: ["/bin/bash", "-c", "cp -r /rails/* /mnt/rails"]
+          volumeMounts:
+            - name: app-volume
+              mountPath: /mnt/rails
       containers:
         - name: rails-app
           image: "{{ .Values.image.rails.repository }}:{{ .Values.image.rails.tag }}"
@@ -19,27 +26,13 @@ spec:
             - containerPort: 3000
           env:
             - name: DATABASE_URL
-              value: {{ .Values.database.url }}
+              value: "{{ .Values.database.url }}"
             - name: RAILS_ENV
-              value: {{ .Values.rails.environment }}
+              value: "{{ .Values.rails.environment }}"
           volumeMounts:
             - name: app-volume
               mountPath: /rails
-          command: ["/bin/bash", "-c", "ls -l /rails"]
-        - name: postgres
-          image: "{{ .Values.postgres.image }}"
-          env:
-            - name: POSTGRES_DB
-              value: "{{ .Values.postgres.environment.POSTGRES_DB }}"
-            - name: POSTGRES_USER
-              value: "{{ .Values.postgres.environment.POSTGRES_USER }}"
-            - name: POSTGRES_PASSWORD
-              value: "{{ .Values.postgres.environment.POSTGRES_PASSWORD }}"
-          ports:
-            - containerPort: 5432
-
-          ports:
-            - containerPort: 5432
+          command: ["/bin/bash", "-c", "rm -f /rails/tmp/pids/server.pid && exec rails server -b 0.0.0.0"]
       volumes:
         - name: app-volume
           persistentVolumeClaim:
