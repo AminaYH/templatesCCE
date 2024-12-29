@@ -12,13 +12,6 @@ spec:
       labels:
         app: react-app
     spec:
-      initContainers:
-        - name: copy-react-files
-          image: "{{ .Values.image.react.repository }}:{{ .Values.image.react.tag }}"
-          command: ["/bin/bash", "-c", "cp -r /app/* /mnt/app"]
-          volumeMounts:
-            - name: react-volume
-              mountPath: /mnt/app
       containers:
         - name: react-app
           image: "{{ .Values.image.react.repository }}:{{ .Values.image.react.tag }}"
