@@ -1,0 +1,44 @@
+image:
+  rails:
+    repository:  amina88/myapp_web
+    tag: latest
+  postgres:
+    repository: postgres 
+    tag: "12"  
+  react:
+    repository: amina88/myapp_react
+    tag: latest
+
+
+database:
+  url: postgres://postgres:password@db:5432/myapp_development 
+  env: development  
+
+rails:
+  environment: development  
+  command: ["/bin/bash", "-c", 'rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0']
+
+postgres:
+  image: postgres:12  
+  environment:
+    POSTGRES_DB: myapp_development  
+    POSTGRES_USER: postgres  
+    POSTGRES_PASSWORD: password  
+
+persistence:
+  postgres:
+    enabled: true  
+    size: 1Gi  
+  app:
+    enabled: true  
+    size: 1Gi  
+
+ingress:
+  enabled: true 
+  host: ruby-app.example.com  
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  
+  tls:
+    - secretName: ruby-app-tls  
+      hosts:
+        - ruby-app.example.com 

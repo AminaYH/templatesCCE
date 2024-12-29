@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+    spec:
+      initContainers:
+        - name: copy-react-files
+          image: "{{ .Values.image.react.repository }}:{{ .Values.image.react.tag }}"
+          command: ["/bin/bash", "-c", "cp -r /app/* /mnt/app"]
+          volumeMounts:
+            - name: react-volume
+              mountPath: /mnt/app
+      containers:
+        - name: react-app
+          image: "{{ .Values.image.react.repository }}:{{ .Values.image.react.tag }}"
+          ports:
+            - containerPort: 80
+          env:
+            - name: CHOKIDAR_USEPOLLING
+              value: "true"
+          volumeMounts:
+            - name: react-volume
+              mountPath: /app
+      volumes:
+        - name: react-volume
+          persistentVolumeClaim:
+            claimName: react-pvc
