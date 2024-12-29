@@ -15,10 +15,10 @@ spec:
       initContainers:
         - name: copy-app-files
           image: "{{ .Values.image.rails.repository }}:{{ .Values.image.rails.tag }}"
-          command: ["/bin/bash", "-c", "cp -r /rails/* /app"]
+          command: ["/bin/bash", "-c", "cp -r /rails/* /rails"]
           volumeMounts:
             - name: app-volume
-              mountPath: /app
+              mountPath: /rails
       containers:
         - name: rails-app
           image: "{{ .Values.image.rails.repository }}:{{ .Values.image.rails.tag }}"
@@ -31,7 +31,7 @@ spec:
               value: "{{ .Values.rails.environment }}"
           volumeMounts:
             - name: app-volume
-              mountPath: /app
+              mountPath: /rails
           command: ["/bin/bash", "-c", "rm -f /rails/tmp/pids/server.pid && exec rails server -b 0.0.0.0"]
       volumes:
         - name: app-volume
