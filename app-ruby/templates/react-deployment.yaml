@@ -29,7 +29,7 @@ spec:
               value: "true"
           volumeMounts:
             - name: react-volume
-              mountPath: /app
+              mountPath: /mnt/app
       volumes:
         - name: react-volume
           persistentVolumeClaim:
