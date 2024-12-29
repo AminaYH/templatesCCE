@@ -6,7 +6,7 @@ image:
     repository: postgres 
     tag: "12"  
   react:
-    repository: amina88/myapp_react
+    repository: amina88/app_react
     tag: latest
 
 
