@@ -16,4 +16,7 @@ spec:
                 name: react-service
                 port:
                   number: 8080
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+            pathType: ImplementationSpecific
   ingressClassName: nginx
