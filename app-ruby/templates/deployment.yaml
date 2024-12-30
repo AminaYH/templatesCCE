@@ -12,7 +12,7 @@ spec:
       labels:
         app: ruby-on-rails-app
     spec:
-     affinity:
+      affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
