@@ -9,22 +9,6 @@ spec:
       labels:
         app: postgres
     spec:
-      initContainers:
-        - name: init-data-directory
-          image: busybox  # Using busybox for a simple image
-          command:
-            - "/bin/sh"
-            - "-c"
-            - |
-              # Ensure the directory is clean and create a subdirectory
-              if [ -d "/var/lib/postgresql/data" ]; then
-                rm -rf /var/lib/postgresql/data/*
-              fi
-              mkdir -p /var/lib/postgresql/data/db
-              chown -R postgres:postgres /var/lib/postgresql/data/db
-          volumeMounts:
-            - name: postgres-data
-              mountPath: /var/lib/postgresql/data
       containers:
         - name: postgres
           image: postgres:12
@@ -37,7 +21,7 @@ spec:
               value: "password"
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /mnt/postgresql_data  # Use a different directory outside the mount point
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
