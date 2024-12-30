@@ -11,7 +11,7 @@ image:
 
 
 database:
-  url: postgres://postgres:password@db:5432/myapp_development 
+  url: postgres://postgres:password@postgres-service:5432/myapp_development 
   env: development  
 
 rails:
