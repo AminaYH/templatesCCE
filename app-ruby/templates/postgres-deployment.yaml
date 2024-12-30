@@ -4,10 +4,13 @@ metadata:
   name: postgres-deployment
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: ruby-on-rails-app  # This should match the label in the Pod template
   template:
     metadata:
       labels:
-        app: postgres
+        app: ruby-on-rails-app  # This label should match the selector
     spec:
       containers:
         - name: postgres
