@@ -20,7 +20,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - 10.200.1.41
+                      - 10.200.1.105
       containers:
         - name: react-app
           image: "{{ .Values.image.react.repository }}:{{ .Values.image.react.tag }}"
