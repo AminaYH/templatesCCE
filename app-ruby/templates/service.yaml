@@ -55,14 +55,9 @@ spec:
   ports:
     - name: cce-service-0
       protocol: TCP
-      port: 8080
+      port: 80
       targetPort: 80
       nodePort: 32027
-    - name: cce-service-1
-      protocol: TCP
-      port: 80
-      targetPort: 8080
-      nodePort: 31005
   loadBalancerIP: 193.95.30.205  
   externalTrafficPolicy: Cluster
   ipFamilies:
