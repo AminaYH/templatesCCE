@@ -12,6 +12,15 @@ spec:
       labels:
         app: ruby-on-rails-app
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - 10.200.1.41
       initContainers:
         - name: copy-app-files
           image: "{{ .Values.image.rails.repository }}:{{ .Values.image.rails.tag }}"
