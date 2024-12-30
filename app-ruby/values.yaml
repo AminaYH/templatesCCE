@@ -1,6 +1,6 @@
 image:
   rails:
-    repository:  amina88/myapp_web
+    repository:  amina88/app_web
     tag: latest
   postgres:
     repository: postgres 
