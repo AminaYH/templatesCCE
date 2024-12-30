@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: "193.95.31.192"
+    - host: "myhostedapp.com"
       http:
         paths:
           - path: /react
