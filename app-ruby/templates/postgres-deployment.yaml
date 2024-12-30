@@ -1,9 +1,8 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: postgres-statefulset
+  name: postgres-deployment
 spec:
-  serviceName: "postgres"
   replicas: 1
   selector:
     matchLabels:
@@ -25,9 +24,8 @@ spec:
               value: "password"
           volumeMounts:
             - name: postgres-data
-              mountPath: /mnt/postgresql_data  # This is where PostgreSQL data will be stored
-  volumeClaimTemplates: []  # Disable automatic PVC creation if using existing PVC
-  volumes:
-    - name: postgres-data
-      persistentVolumeClaim:
-        claimName: postgres-pvc  # Use the existing PVC here
+              mountPath: /mnt/postgresql_data  # Use a different directory outside the mount point
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc
