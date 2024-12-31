@@ -12,6 +12,15 @@ spec:
       labels:
         app: ruby-on-rails-app  # This label should match the selector
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - 10.200.1.41
       containers:
         - name: postgres
           image: postgres:12
