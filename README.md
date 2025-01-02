@@ -4,16 +4,20 @@ This repository contains Helm templates for deploying various applications on Hu
 
 ### Applications Supported for now
 
+
 1. **React Application**: A starter template for deploying a React-based frontend application.
 2. **Ruby on Rails Application**: A Ruby on Rails web application template for full-stack development.
 3. **PostgreSQL Database**: A template for setting up a PostgreSQL database to handle data storage.
 
+
 ### Features
+
 
 - **Helm Charts**: Easy-to-use Helm templates for quick deployment.
 - **Kubernetes Integration**: Optimized for Kubernetes clusters.
 - **Huawei Cloud Specific**: Tailored templates for deployment on Huawei Cloud infrastructure.
 - **Scalability**: Easy to extend with additional services or applications.
+
 
 ### Prerequisites
 
