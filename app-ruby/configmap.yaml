@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+  labels:
+    app: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+data:
+  # Key-value pairs from `values.yaml`
+  application.properties: |
+    app.name={{ .Values.app.name }}
+    app.environment={{ .Values.app.environment }}
+    app.port={{ .Values.app.port }}
+  custom.message: |
+    {{ .Values.customMessage | quote }}
